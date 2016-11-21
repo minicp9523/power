@@ -22,6 +22,8 @@ public class transmit {
 		HTable table = new HTable(conf,TableName);
 		put.addColumn(Bytes.toBytes("Data"), Bytes.toBytes("ID"), Bytes.toBytes("THUC_001"));
 
+		put.addColumn(Bytes.toBytes("Data"), Bytes.toBytes("I"), Bytes.toBytes("0"));
+		//THIS
 		
 		table.close();
 	}

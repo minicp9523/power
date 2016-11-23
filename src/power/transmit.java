@@ -18,13 +18,13 @@ public class transmit {
 	}
 
 	public static void addData(String rowKey, String TableName, String[] col1, String[] val1) throws IOException {
-		Put put = new Put(Bytes.toBytes(rowKey));
 		HTable table = new HTable(conf, TableName);
+		Put put = new Put(Bytes.toBytes(rowKey));		//³]¸mRowKey
 		HColumnDescriptor[] columnFamilies = table.getTableDescriptor().getColumnFamilies();
 
 		for (int i = 0; i < columnFamilies.length; i++) {
 			String familyName = columnFamilies[i].getNameAsString();
-			if (familyName.equals("data")) {
+			if (familyName.equals("col1")) {
 				for (int j = 0; j < columnFamilies.length; j++) {
 					put.add(Bytes.toBytes(familyName), Bytes.toBytes(col1[j]), Bytes.toBytes(val1[j]));
 					
@@ -33,11 +33,12 @@ public class transmit {
 		}
 		put.addColumn(Bytes.toBytes("Data"), Bytes.toBytes("ID"), Bytes.toBytes("THUC_001"));
 		put.addColumn(Bytes.toBytes("Data"), Bytes.toBytes("I"), Bytes.toBytes("0"));
-
+		
 		table.close();
 	}
 
 	public static void main(String[] args) throws Exception {
+		
 //		addData("data","power","col1","val1");
 	}
 }

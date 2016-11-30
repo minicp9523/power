@@ -14,7 +14,6 @@ public class transmit {
 	static Configuration conf = null;
 	static {
 		conf = HBaseConfiguration.create();
-		conf.set("hbase.zookeeper.quorum", "master");
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -23,11 +22,15 @@ public class transmit {
 			String family = "data";
 			transmit.addData(TableName, "row1", family, "V", "24");
 			transmit.addData(TableName, "row1", family, "I", "0");
+			
+			getAllRecord(TableName, "row1");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	
+	// 新增資料
 	public static void addData(String TableName, String rowKey, String family, String qualifier, String value)
 			throws IOException {
 		try {
@@ -53,13 +56,13 @@ public class transmit {
 			e.printStackTrace();
 		}
 	}
-
+	
+	// 取得所有資料
 	public static void getAllRecord(String TableName, String rowKey) {
 		try {
 			HTable table = new HTable(conf, TableName);
-			Scan s = new Scan();
-			ResultScanner ss = table.getScanner(s);
-			for (Result r : ss) {
+			ResultScanner rs = table.getScanner(new Scan());
+			for (Result r : rs) {
 				for (KeyValue kv : r.raw()) {
 					System.out.print(new String(kv.getRow()) + " ");
 					System.out.print(new String(kv.getFamily()) + ":");

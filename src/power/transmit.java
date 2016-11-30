@@ -17,6 +17,17 @@ public class transmit {
 		conf.set("hbase.zookeeper.quorum", "master");
 	}
 
+	public static void main(String[] args) throws Exception {
+		try {
+			String TableName = "power";
+			String family = "data";
+			transmit.addData(TableName, "row1", family, "V", "24");
+			transmit.addData(TableName, "row1", family, "I", "0");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void addData(String TableName, String rowKey, String family, String qualifier, String value)
 			throws IOException {
 		try {
@@ -60,17 +71,5 @@ public class transmit {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static void main(String[] args) throws Exception {
-		try {
-			String TableName = "power";
-			String family = "data";
-			transmit.addData(TableName, "row1", family, "V", "24");
-			transmit.addData(TableName, "row1", family, "I", "0");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// addData("data","power","col1","val1");
 	}
 }

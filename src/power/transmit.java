@@ -14,6 +14,9 @@ public class transmit {
 	static Configuration conf = null;
 	static {
 		conf = HBaseConfiguration.create();
+		conf.set("hbase.master", "140.128.101.175:60000");
+		conf.set("hbase.zookeeper.quorum", "140.128.101.175");  //locate zookeeper address
+		conf.set("hbase.zookeeper.property.clientPort", "2181");
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -30,12 +33,12 @@ public class transmit {
 		}
 	}
 	
-	// 新增資料
+	// �憓���
 	public static void addData(String TableName, String rowKey, String family, String qualifier, String value)
 			throws IOException {
 		try {
 			HTable table = new HTable(conf, TableName);
-			Put put = new Put(Bytes.toBytes(rowKey)); // �]�mRowKey
+			Put put = new Put(Bytes.toBytes(rowKey)); // 嚙稽嚙練RowKey
 			// HColumnDescriptor[] columnFamilies =
 			// table.getTableDescriptor().getColumnFamilies();
 
@@ -57,7 +60,7 @@ public class transmit {
 		}
 	}
 	
-	// 取得所有資料
+	// ���������
 	public static void getAllRecord(String TableName, String rowKey) {
 		try {
 			HTable table = new HTable(conf, TableName);

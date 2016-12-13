@@ -33,12 +33,12 @@ public class transmit {
 		}
 	}
 	
-	// �憓���
+	// add new data
 	public static void addData(String TableName, String rowKey, String family, String qualifier, String value)
 			throws IOException {
 		try {
 			HTable table = new HTable(conf, TableName);
-			Put put = new Put(Bytes.toBytes(rowKey)); // 嚙稽嚙練RowKey
+			Put put = new Put(Bytes.toBytes(rowKey)); // ��里��毀RowKey
 			// HColumnDescriptor[] columnFamilies =
 			// table.getTableDescriptor().getColumnFamilies();
 
@@ -54,13 +54,12 @@ public class transmit {
 			// }
 			put.add(Bytes.toBytes(family), Bytes.toBytes(qualifier), Bytes.toBytes(value));
 			table.put(put);
-			table.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	// ���������
+	// get record
 	public static void getAllRecord(String TableName, String rowKey) {
 		try {
 			HTable table = new HTable(conf, TableName);

@@ -33,25 +33,12 @@ public class transmit {
 		}
 	}
 	
-	// �憓���
+
 	public static void addData(String TableName, String rowKey, String family, String qualifier, String value)
 			throws IOException {
 		try {
 			HTable table = new HTable(conf, TableName);
-			Put put = new Put(Bytes.toBytes(rowKey)); // 嚙稽嚙練RowKey
-			// HColumnDescriptor[] columnFamilies =
-			// table.getTableDescriptor().getColumnFamilies();
-
-			// for (int i = 0; i < columnFamilies.length; i++) {
-			// String familyName = columnFamilies[i].getNameAsString();
-			// if (familyName.equals("col1")) {
-			// for (int j = 0; j < columnFamilies.length; j++) {
-			// put.add(Bytes.toBytes(familyName), Bytes.toBytes(col1[j]),
-			// Bytes.toBytes(val1[j]));
-			//
-			// }
-			// }
-			// }
+			Put put = new Put(Bytes.toBytes(rowKey));
 			put.add(Bytes.toBytes(family), Bytes.toBytes(qualifier), Bytes.toBytes(value));
 			table.put(put);
 		} catch (IOException e) {
